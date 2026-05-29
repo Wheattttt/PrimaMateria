@@ -1,0 +1,76 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net46</TargetFramework>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <LangVersion>10</LangVersion>
+    <AutoGenerateBindingRedirects>True</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="Brimstone">
+      <HintPath>E:\OMmodding\Opus Magnum\Mods\Brimstone_2.0.2\Brimstone.dll</HintPath>
+    </Reference>
+    <Reference Include="Lightning">
+      <HintPath>E:\OMmodding\Opus Magnum\ModdedLightning.exe</HintPath>
+    </Reference>
+    <Reference Include="MMHOOK_ModdedLightning">
+      <HintPath>E:\OMmodding\Opus Magnum\MMHOOK_ModdedLightning.dll</HintPath>
+    </Reference>
+    <Reference Include="Lightning">
+      <HintPath>..\Opus Magnum\ModdedLightning.exe</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil">
+      <HintPath>E:\OMmodding\Opus Magnum\Mono.Cecil.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoMod">
+      <HintPath>E:\OMmodding\Opus Magnum\MonoMod.exe</HintPath>
+    </Reference>
+    <Reference Include="MonoMod.RuntimeDetour">
+      <HintPath>E:\OMmodding\Opus Magnum\MonoMod.RuntimeDetour.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoMod.RuntimeDetour.HookGen">
+      <HintPath>E:\OMmodding\Opus Magnum\MonoMod.RuntimeDetour.HookGen.exe</HintPath>
+    </Reference>
+    <Reference Include="MonoMod.Utils">
+      <HintPath>E:\OMmodding\Opus Magnum\MonoMod.Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="ReductiveMetallurgy">
+      <HintPath>..\Opus Magnum\Mods\ReductiveMetallurgy_1.0.1\ReductiveMetallurgy.dll</HintPath>
+    </Reference>
+    <Reference Include="YamlDotNet">
+      <HintPath>E:\OMmodding\Opus Magnum\YamlDotNet.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Update="System">
+      <CopyLocal>False</CopyLocal>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Update="System.Core">
+      <CopyLocal>False</CopyLocal>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Update="System.Data">
+      <CopyLocal>False</CopyLocal>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Update="System.Drawing">
+      <CopyLocal>False</CopyLocal>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy /Y &quot;E:\OMmodding\PrimaMateria\bin\Debug\net46\PrimaMateria.dll&quot; &quot;E:\OMmodding\Opus Magnum\Mods\PrimaMateria\PrimaMateria.dll&quot; &amp;&amp; cd /d &quot;E:\OMmodding\Opus Magnum&quot; &amp;&amp; ModdedLightning.exe" />
+  </Target>
+
+</Project>
