@@ -1,5 +1,5 @@
 Name: PrimaMateria
-Version: 0.1.0
+Version: 0.1.1
 Icon: pm_mod_icon
 Title: "Prima Materia"
 Desc: Adds the Volatiles, a new ring of elements associated with Sulfur... and Primae, the underlying substance that gives the world form.
@@ -9,6 +9,3 @@ Dependences:
   Version: 0.5.6
 - Name: Brimstone
   Version: 2.0.2
-OptionalDependencies:
-- Name: ReductiveMetallurgy
-  Version: 1.0.1

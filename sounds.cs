@@ -13,6 +13,8 @@ namespace PrimaMateria
         public static Sound Alignment;
         public static Sound EtherealBonder;
         public static Sound CalcicBonder;
+        public static Sound Affluence;
+        public static Sound Volatility;
 
         public static void LoadSounds()
         {
@@ -24,6 +26,8 @@ namespace PrimaMateria
             Alignment = Brimstone.API.GetSound(PrimaMateria.contentPath, "sounds/glyph_alignment").method_1087();
             EtherealBonder = Brimstone.API.GetSound(PrimaMateria.contentPath, "sounds/etherealbonder").method_1087();
             CalcicBonder = Brimstone.API.GetSound(PrimaMateria.contentPath, "sounds/calcicbonder").method_1087();
+            Affluence = Brimstone.API.GetSound(PrimaMateria.contentPath, "sounds/glyph_affluence").method_1087();
+            Volatility = Brimstone.API.GetSound(PrimaMateria.contentPath, "sounds/glyph_volatility").method_1087();
 
             FieldInfo field = typeof(class_11).GetField("field_52", BindingFlags.Static | BindingFlags.NonPublic);
             Dictionary<string, float> volumeDictionary = (Dictionary<string, float>)field.GetValue(null);
@@ -32,10 +36,12 @@ namespace PrimaMateria
             volumeDictionary.Add("glyph_revolution", 0.33f);
             volumeDictionary.Add("glyph_inversion", 0.5f);
             volumeDictionary.Add("glyph_subversion", 0.5f);
-            volumeDictionary.Add("glyph_sublimation", 0.33f);
-            volumeDictionary.Add("glyph_alignment", 0.33f);
+            volumeDictionary.Add("glyph_sublimation", 0.26f);
+            volumeDictionary.Add("glyph_alignment", 0.26f);
             volumeDictionary.Add("etherealbonder", 0.4f);
             volumeDictionary.Add("calcicbonder", 0.4f);
+            volumeDictionary.Add("glyph_affluence", 0.39f);
+            volumeDictionary.Add("glyph_volatility", 0.39f);
 
             On.class_201.method_540 += Sounds.Method_540;
         }
@@ -56,6 +62,8 @@ namespace PrimaMateria
             Alignment.field_4062 = false;
             EtherealBonder.field_4062 = false;
             CalcicBonder.field_4062 = false;
+            Affluence.field_4062 = false;
+            Volatility.field_4062 = false;
         }
     }
 }

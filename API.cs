@@ -62,6 +62,50 @@ public static class API
         public AtomType output;
     }
 
+    // I'm not sure why you'd need this, but I'm making these use the recipe format anyways because its easier.
+    // If someone else really wants to add their own volatiles, and by extension their own opalescence recipes, then this will allow it.
+    public struct AffluenceRecipe
+    {
+        public AffluenceRecipe(AtomType sulfur, AtomType quicklime, AtomType potash, AtomType magnesia, AtomType antimony, AtomType phosphor, AtomType opalescence)
+        {
+            this.sulfur = sulfur;
+            this.quicklime = quicklime;
+            this.potash = potash;
+            this.magnesia = magnesia;
+            this.antimony = antimony;
+            this.phosphor = phosphor;
+            this.opalescence = opalescence;
+        }
+        public AtomType sulfur;
+        public AtomType quicklime;
+        public AtomType potash;
+        public AtomType magnesia;
+        public AtomType antimony;
+        public AtomType phosphor;
+        public AtomType opalescence;
+    }
+    public struct VolatilityRecipe
+    {
+        public VolatilityRecipe(AtomType opalescence, AtomType sulfur, AtomType quicklime, AtomType potash, AtomType magnesia, AtomType antimony, AtomType phosphor)
+        {
+            this.opalescence = opalescence;
+            this.sulfur = sulfur;
+            this.quicklime = quicklime;
+            this.potash = potash;
+            this.magnesia = magnesia;
+            this.antimony = antimony;
+            this.phosphor = phosphor;
+        }
+        public AtomType sulfur;
+        public AtomType quicklime;
+        public AtomType potash;
+        public AtomType magnesia;
+        public AtomType antimony;
+        public AtomType phosphor;
+        public AtomType opalescence;
+    }
+
+
     public struct AtomColor
     {
         public AtomColor(AtomType atom, Color color)
@@ -81,6 +125,8 @@ public static class API
     public static List<InversionRecipe> InversionTransmutation = new(); // Input, Output
     public static List<SubversionRecipe> SubversionTransmutation = new(); // Input, Left output, Right output
     public static List<SynthesisRecipe> SynthesisTransmutation = new(); // Input 1, Input 2, Output
+    public static List<AffluenceRecipe> AffluenceTransmutation = new(); // Input 1, Input 2, Output
+    public static List<VolatilityRecipe> VolatilityTransmutation = new(); // Input 1, Input 2, Output
 
     public static void AddTransmutations()
     {
@@ -91,6 +137,7 @@ public static class API
         AtomColorsList.Add(new(PrimaMateriaAtoms.Magnesia, new Color(255f/255f, 140f/255f, 212f/255f, 1f)));
         AtomColorsList.Add(new(PrimaMateriaAtoms.Potash, new Color(255f/255f, 147f/255f, 114f/255f, 1f)));
         AtomColorsList.Add(new(PrimaMateriaAtoms.Quicklime, new Color(255f/255f, 185f/255f, 107f/255f, 1f)));
+        AtomColorsList.Add(new(PrimaMateriaAtoms.Opalescence, new Color(255f / 255f, 209f / 255f, 217f / 255f, 1f)));
 
         //accepted volatiles
         AcceptedVolatileAtoms.Add(PrimaMateriaAtoms.Sulfur);
@@ -140,5 +187,25 @@ public static class API
         SynthesisTransmutation.Add(new(Brimstone.API.VanillaAtoms.salt, PrimaMateriaAtoms.Sulfur, Brimstone.API.VanillaAtoms.quicksilver));
         SynthesisTransmutation.Add(new(Brimstone.API.VanillaAtoms.quicksilver, Brimstone.API.VanillaAtoms.salt, PrimaMateriaAtoms.Sulfur));
         SynthesisTransmutation.Add(new( PrimaMateriaAtoms.Sulfur, Brimstone.API.VanillaAtoms.quicksilver, Brimstone.API.VanillaAtoms.salt));
+
+        //Opalescence
+        AffluenceTransmutation.Add(new(
+            PrimaMateriaAtoms.Sulfur,
+            PrimaMateriaAtoms.Quicklime,
+            PrimaMateriaAtoms.Potash,
+            PrimaMateriaAtoms.Magnesia,
+            PrimaMateriaAtoms.Antimony,
+            PrimaMateriaAtoms.Phosphor,
+            PrimaMateriaAtoms.Opalescence
+        ));
+        VolatilityTransmutation.Add(new(
+            PrimaMateriaAtoms.Opalescence,
+            PrimaMateriaAtoms.Sulfur,
+            PrimaMateriaAtoms.Quicklime,
+            PrimaMateriaAtoms.Potash,
+            PrimaMateriaAtoms.Magnesia,
+            PrimaMateriaAtoms.Antimony,
+            PrimaMateriaAtoms.Phosphor
+        ));
     }
 }

@@ -4,7 +4,6 @@ using MonoMod.Cil;
 using MonoMod.RuntimeDetour;
 using MonoMod.Utils;
 using Quintessential;
-using ReductiveMetallurgy;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -35,9 +34,6 @@ public class PrimaMateria : QuintessentialMod
         {BondType.Prisma1, BondType.Prisma0 | BondType.Prisma2},
         {BondType.Prisma2, BondType.Prisma0 | BondType.Prisma1},
     };
-
-    // optional dependencies
-    public static readonly bool ReductiveMetallurgyLoaded = Brimstone.API.IsModLoaded("ReductiveMetallurgy");
 
     //drawing helpers
     public static Vector2 hexGraphicalOffset(HexIndex hex) => class_187.field_1742.method_492(hex);
@@ -82,6 +78,8 @@ public class PrimaMateria : QuintessentialMod
         QApi.AddPuzzlePermission("PrimaMateria: Alignment", "Glyph of Alignment", "Prima Materia");
         QApi.AddPuzzlePermission("PrimaMateria: Displacement", "Glyph of Displacement", "Prima Materia");
         QApi.AddPuzzlePermission("PrimaMateria: Ethereal Bonder", "Glyph of Ethereal Bonding", "Prima Materia");
+        QApi.AddPuzzlePermission("PrimaMateria: Affluence", "Glyph of Affluence", "Prima Materia");
+        QApi.AddPuzzlePermission("PrimaMateria: Volatility", "Glyph of Volatility", "Prima Materia");
         QApi.AddPuzzlePermission("PrimaMateria: Fabienne's Wheel", "Fabienne's Wheel", "Prima Materia");
         QApi.AddPuzzlePermission("PrimaMateria: Tullas' Wheel", "Tullas' Wheel", "Prima Materia");
         API.AddTransmutations();
@@ -241,8 +239,8 @@ public class PrimaMateria : QuintessentialMod
     }
     public void DrawPartSelectionGlows(On.SolutionEditorBase.orig_method_1997 orig, SolutionEditorBase seb_self, Part part, Vector2 pos, float alpha)
     {
-        if (part.method_1159() == Wheel_Fabienne.Fabienne) Wheel.drawSelectionGlow(seb_self, part, pos, alpha);
-        if (part.method_1159() == Wheel_Tullas.Tullas) Wheel.drawSelectionGlow(seb_self, part, pos, alpha);
+        if (part.method_1159() == Wheel_Fabienne.Fabienne) Wheel_Fabienne.drawSelectionGlow(seb_self, part, pos, alpha);
+        if (part.method_1159() == Wheel_Tullas.Tullas) Wheel_Tullas.drawSelectionGlow(seb_self, part, pos, alpha);
         orig(seb_self, part, pos, alpha);
     }
 }

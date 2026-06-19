@@ -102,7 +102,7 @@ public static class Wheel_Fabienne
             /*Name*/
             field_1529 = class_134.method_253("Fabienne's Wheel", string.Empty),
             /*Desc*/
-            field_1530 = class_134.method_253("By using Fabienne's wheel with the glyph of Subversion, any of the six volatile elements can be transformed freely.", string.Empty),
+            field_1530 = class_134.method_253("By using Fabienne's wheel with the glyph of subversion, any of the six volatile elements can be transformed freely.", string.Empty),
             /*Cost*/
             field_1531 = 30,
             /*Type*/
@@ -121,8 +121,12 @@ public static class Wheel_Fabienne
             field_1552 = true,
             CustomPermissionCheck = perms => perms.Contains("PrimaMateria: Fabienne's Wheel")
         };
-        foreach (var hex in HexIndex.AdjacentOffsets) Fabienne.field_1544.Add(hex, PrimaMateriaAtoms.Sulfur);
-
+        Fabienne.field_1544.Add(new HexIndex(0, 1), PrimaMateriaAtoms.Potash);
+        Fabienne.field_1544.Add(new HexIndex(1, 0), PrimaMateriaAtoms.Quicklime);
+        Fabienne.field_1544.Add(new HexIndex(1, -1), PrimaMateriaAtoms.Sulfur);
+        Fabienne.field_1544.Add(new HexIndex(0, -1), PrimaMateriaAtoms.Phosphor);
+        Fabienne.field_1544.Add(new HexIndex(-1, 0), PrimaMateriaAtoms.Antimony);
+        Fabienne.field_1544.Add(new HexIndex(-1, 1), PrimaMateriaAtoms.Magnesia);
 
         QApi.AddPartTypeToPanel(Fabienne, Berlo);
         QApi.AddPartType(Fabienne, DrawFabiennePart);

@@ -1,21 +1,24 @@
 ﻿// Shamelessly stolen from many sources (Complicated Elements, RM helper functions, etc)
+using Brimstone;
 using MonoMod.Utils;
 using Quintessential;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Threading;
+using YamlDotNet.Core.Tokens;
 using AtomTypes = class_175;
-using PartType = class_139;
-using PartTypes = class_191;
 using BondSite = class_222;
 using BondType = enum_126;
+using PartType = class_139;
+using PartTypes = class_191;
 using Permissions = enum_149;
 using Texture = class_256;
-using Brimstone;
-using System.Runtime.CompilerServices;
 
 namespace PrimaMateria;
 
@@ -83,7 +86,7 @@ internal static class PrimaMateriaParts
 
 
 
-    public static PartType CalcicBonder, Revolution, Synthesis, Inversion, Subversion, Sublimation, Alignment, Displacement, EtherealBonder;
+    public static PartType CalcicBonder, Revolution, Synthesis, Inversion, Subversion, Sublimation, Alignment, Displacement, EtherealBonder, Affluence, Volatility;
 
     public static Texture bowl = class_238.field_1989.field_90.field_170;
     public static Texture metalBowl = class_238.field_1989.field_90.field_255.field_292;
@@ -251,6 +254,62 @@ internal static class PrimaMateriaParts
     public static readonly HexIndex etherealRight = new(1, 0);
     public static readonly HexIndex etherealInput = new(1, -1);
 
+    //Affluence
+    public static Texture affluenceBase = Brimstone.API.GetTexture("textures/parts/PrimaMateria/affluence/base");
+    public static Texture affluenceShadow = Brimstone.API.GetTexture("textures/parts/PrimaMateria/affluence/shadow");
+    public static Texture affluenceTop = Brimstone.API.GetTexture("textures/parts/PrimaMateria/affluence/top");
+    public static Texture affluenceGlossmask = Brimstone.API.GetTexture("textures/parts/PrimaMateria/affluence/gloss_mask");
+    public static Texture affluenceGloss = Brimstone.API.GetTexture("textures/parts/PrimaMateria/affluence/gloss");
+    public static Texture affluenceGlow = Brimstone.API.GetTexture("textures/parts/PrimaMateria/select/affluence_glow");
+    public static Texture affluenceStroke = Brimstone.API.GetTexture("textures/parts/PrimaMateria/select/affluence_stroke");
+
+    public static Texture affluencePhosphor = Brimstone.API.GetTexture("textures/parts/PrimaMateria/affluence/phosphor");
+    public static Texture affluenceAntimony = Brimstone.API.GetTexture("textures/parts/PrimaMateria/affluence/antimony");
+    public static Texture affluenceMagnesia = Brimstone.API.GetTexture("textures/parts/PrimaMateria/affluence/magnesia");
+    public static Texture affluencePotash = Brimstone.API.GetTexture("textures/parts/PrimaMateria/affluence/potash");
+    public static Texture affluenceQuicklime = Brimstone.API.GetTexture("textures/parts/PrimaMateria/affluence/quicklime");
+
+    public static Texture affluenceIcon = Brimstone.API.GetTexture("textures/parts/PrimaMateria/icons/affluence");
+    public static Texture affluenceHover = Brimstone.API.GetTexture("textures/parts/PrimaMateria/icons/affluence_hover");
+   
+    public static readonly HexIndex affluenceSulfurHex = new(0, 0);
+    public static readonly HexIndex affluencePhosphorHex = new(-1, 0);
+    public static readonly HexIndex affluenceAntimonyHex = new(-1, 1);
+    public static readonly HexIndex affluenceMagnesiaHex = new(0, 1);
+    public static readonly HexIndex affluencePotashHex = new(1, 0);
+    public static readonly HexIndex affluenceQuicklimeHex = new(1, -1);
+
+    //Volatility
+    public static Texture[] irisSulfur = Brimstone.API.GetAnimation("textures/parts/PrimaMateria/iris_full_sulfur.array", "iris", 16);
+    public static Texture[] irisQuicklime = Brimstone.API.GetAnimation("textures/parts/PrimaMateria/iris_full_quicklime.array", "iris", 16);
+    public static Texture[] irisPotash = Brimstone.API.GetAnimation("textures/parts/PrimaMateria/iris_full_potash.array", "iris", 16);
+    public static Texture[] irisMagnesia = Brimstone.API.GetAnimation("textures/parts/PrimaMateria/iris_full_magnesia.array", "iris", 16);
+    public static Texture[] irisAntimony = Brimstone.API.GetAnimation("textures/parts/PrimaMateria/iris_full_antimony.array", "iris", 16);
+    public static Texture[] irisPhosphor = Brimstone.API.GetAnimation("textures/parts/PrimaMateria/iris_full_phosphor.array", "iris", 16);
+
+    public static Texture volatilityBase = Brimstone.API.GetTexture("textures/parts/PrimaMateria/volatility/base");
+    public static Texture volatilityShadow = Brimstone.API.GetTexture("textures/parts/PrimaMateria/volatility/shadow");
+    public static Texture volatilityBottom = Brimstone.API.GetTexture("textures/parts/PrimaMateria/volatility/bottom");
+    public static Texture volatilityTop = Brimstone.API.GetTexture("textures/parts/PrimaMateria/volatility/top");
+    public static Texture volatilityGlossmask = Brimstone.API.GetTexture("textures/parts/PrimaMateria/volatility/gloss_mask");
+    public static Texture volatilityGloss = Brimstone.API.GetTexture("textures/parts/PrimaMateria/volatility/gloss");
+    public static Texture volatilityGlow = Brimstone.API.GetTexture("textures/parts/PrimaMateria/select/volatility_glow");
+    public static Texture volatilityStroke = Brimstone.API.GetTexture("textures/parts/PrimaMateria/select/volatility_stroke");
+
+    public static Texture volatilityOpalescence = Brimstone.API.GetTexture("textures/parts/PrimaMateria/volatility/opalescence");
+
+    public static Texture volatilityIcon = Brimstone.API.GetTexture("textures/parts/PrimaMateria/icons/volatility");
+    public static Texture volatilityHover = Brimstone.API.GetTexture("textures/parts/PrimaMateria/icons/volatility_hover");
+
+    public static readonly HexIndex volatilityInputHex = new(0, 0);
+    public static readonly HexIndex volatilityPhosphorHex = new(0, -2);
+    public static readonly HexIndex volatilityAntimonyHex = new(0, -1);
+    public static readonly HexIndex volatilityMagnesiaHex = new(-1, 0);
+    public static readonly HexIndex volatilityPotashHex = new(2, -2);
+    public static readonly HexIndex volatilityQuicklimeHex = new(1, -1);
+    public static readonly HexIndex volatilitySulfurHex = new(1, 0);
+
+
     public static void AddPartTypes()
     {
         CalcicBonder = new()
@@ -307,7 +366,7 @@ internal static class PrimaMateriaParts
         {
             field_1528 = "prima-materia-revolution", // ID
             field_1529 = class_134.method_253("Glyph of Revolution", string.Empty), // Name
-            field_1530 = class_134.method_253("The glyph of revolution accepts a volatile in either the clockwise or counter-clockwise slots to revolve the volatile element in the center in that direction. ", string.Empty), // Description
+            field_1530 = class_134.method_253("The glyph of revolution accepts a volatile in either the clockwise or counter-clockwise slots to revolve the volatile element in the center in that direction along the volatile wheel. ", string.Empty), // Description
             field_1531 = 20, // Cost
             field_1539 = true, // Is a glyph
             field_1549 = revolutionGlow,
@@ -331,6 +390,7 @@ internal static class PrimaMateriaParts
             renderer.method_528(revolutionBowl, revBowl, Vector2.Zero);
             renderer.method_529(revolutionCWsymbol, revClockwise, Vector2.Zero);
             renderer.method_529(revolutionCCWsymbol, revCounterClockwise, Vector2.Zero);
+            renderer.method_529(subversionSymbol, revBowl, Vector2.Zero);
             drawPartGloss(renderer, revolutionGloss, revolutionGlossmask, offset);
         });
         Synthesis = new()
@@ -488,12 +548,13 @@ internal static class PrimaMateriaParts
             field_1528 = "prima-materia-sublimation", // ID
             field_1529 = class_134.method_253("Glyph of Sublimation", string.Empty), // Name
             field_1530 = class_134.method_253("The glyph of sublimation is capable of unimpressing atoms of the tria prima into atoms of pure primae. ", string.Empty), // Description
-            field_1531 = 20, // Cost
+            field_1531 = 50, // Cost
             field_1539 = true, // Is a glyph
             field_1549 = sublimationGlow,
             field_1550 = sublimationStroke,
             field_1547 = sublimationIcon, // Panel icon
             field_1548 = sublimationHover, // Hovered panel icon
+            field_1552 = true, // Only one allowed
             field_1540 = new HexIndex[]
             {
                 sublimationCenter,
@@ -590,7 +651,7 @@ internal static class PrimaMateriaParts
             field_1528 = "prima-materia-etherealbonder", // ID
             field_1529 = class_134.method_253("Glyph of Ethereal Bonding", string.Empty), // Name
             field_1530 = class_134.method_253("The glyph of ethereal bonding takes one atom of Primae to create a special kind of bond between two atoms of the same type. ", string.Empty), // Description
-            field_1531 = 20, // Cost
+            field_1531 = 30, // Cost
             field_1539 = true, // Is a glyph
             field_1549 = etherealGlow,
             field_1550 = etherealStroke,
@@ -637,6 +698,136 @@ internal static class PrimaMateriaParts
             }
         });
 
+        Affluence = new()
+        {
+            field_1528 = "prima-materia-affluence", // ID
+            field_1529 = class_134.method_253("Glyph of Affluence", string.Empty), // Name
+            field_1530 = class_134.method_253("The glyph of affluence transmutes one atom of each of the six volatile elements into one atom of opalescence.", string.Empty), // Description
+            field_1531 = 20, // Cost
+            field_1539 = true, // Is a glyph
+            field_1549 = affluenceGlow,
+            field_1550 = affluenceStroke,
+            field_1547 = affluenceIcon, // Panel icon
+            field_1548 = affluenceHover, // Hovered panel icon
+            field_1540 = new HexIndex[]
+            {
+                affluenceSulfurHex,
+                affluencePhosphorHex,
+                affluenceAntimonyHex,
+                affluenceMagnesiaHex,
+                affluencePotashHex,
+                affluenceQuicklimeHex
+            },
+            field_1551 = Permissions.None,
+            CustomPermissionCheck = perms => perms.Contains("PrimaMateria: Affluence")
+        };
+        QApi.AddPartType(Affluence, static (part, pos, editor, renderer) =>
+        {
+            Vector2 offset = new(124f, 119f);
+            renderer.method_523(affluenceBase, Vector2.Zero, offset, 0f);
+            renderer.method_523(affluenceShadow, Vector2.Zero, offset, 0f);
+            renderer.method_528(subversionBowl, affluenceSulfurHex, Vector2.Zero);
+            renderer.method_523(affluenceTop, Vector2.Zero, offset, 0f);
+            renderer.method_529(affluenceQuicklime, affluenceQuicklimeHex, Vector2.Zero);
+            renderer.method_529(affluencePotash, affluencePotashHex, Vector2.Zero);
+            renderer.method_529(affluenceMagnesia, affluenceMagnesiaHex, Vector2.Zero);
+            renderer.method_529(affluenceAntimony, affluenceAntimonyHex, Vector2.Zero);
+            renderer.method_529(affluencePhosphor, affluencePhosphorHex, Vector2.Zero);
+            renderer.method_529(subversionSymbol, affluenceSulfurHex, Vector2.Zero);
+            drawPartGloss(renderer, affluenceGloss, affluenceGlossmask, offset);
+        });
+        Volatility = new()
+        {
+            field_1528 = "prima-materia-volatility", // ID
+            field_1529 = class_134.method_253("Glyph of Volatility", string.Empty), // Name
+            field_1530 = class_134.method_253("The glyph of volatility transmutes one atom of opalescence into one atom of each of the six volatile elements. ", string.Empty), // Description
+            field_1531 = 20, // Cost
+            field_1539 = true, // Is a glyph
+            field_1549 = volatilityGlow,
+            field_1550 = volatilityStroke,
+            field_1547 = volatilityIcon, // Panel icon
+            field_1548 = volatilityHover, // Hovered panel icon
+            field_1540 = new HexIndex[]
+            {
+                volatilityInputHex,
+                volatilitySulfurHex,
+                volatilityQuicklimeHex,
+                volatilityPotashHex,
+                volatilityMagnesiaHex,
+                volatilityAntimonyHex,
+                volatilityPhosphorHex,
+            },
+            field_1551 = Permissions.None,
+            CustomPermissionCheck = perms => perms.Contains("PrimaMateria: Volatility")
+        };
+        QApi.AddPartType(Volatility, static (part, pos, editor, renderer) =>
+        {
+            PartSimState pss = editor.method_507().method_481(part);
+            class_236 uco = editor.method_1989(part, pos);
+            float time = editor.method_504();
+
+            Vector2 offset = new(125f, 190f);
+            renderer.method_523(volatilityBase, Vector2.Zero, offset, 0f);
+            renderer.method_523(volatilityShadow, Vector2.Zero, offset, 0f);
+            renderer.method_523(volatilityBottom, Vector2.Zero, offset, 0f);
+
+            int irisFrame = 15;
+            bool afterIrisOpens = false;
+            Molecule risingSulfur = null;
+            Molecule risingQuicklime = null;
+            Molecule risingPotash = null;
+            Molecule risingMagnesia = null;
+            Molecule risingAntimony = null;
+            Molecule risingPhosphor = null;
+            Vector2 risingOffsetSulfur = uco.field_1984 + class_187.field_1742.method_492(volatilitySulfurHex).Rotated(uco.field_1985);
+            Vector2 risingOffsetQuicklime = uco.field_1984 + class_187.field_1742.method_492(volatilityQuicklimeHex).Rotated(uco.field_1985);
+            Vector2 risingOffsetPotash = uco.field_1984 + class_187.field_1742.method_492(volatilityPotashHex).Rotated(uco.field_1985);
+            Vector2 risingOffsetMagnesia = uco.field_1984 + class_187.field_1742.method_492(volatilityMagnesiaHex).Rotated(uco.field_1985);
+            Vector2 risingOffsetAntimony = uco.field_1984 + class_187.field_1742.method_492(volatilityAntimonyHex).Rotated(uco.field_1985);
+            Vector2 risingOffsetPhosphor = uco.field_1984 + class_187.field_1742.method_492(volatilityPhosphorHex).Rotated(uco.field_1985);
+            if (pss.field_2743)
+            {
+                irisFrame = class_162.method_404((int)(class_162.method_411(1f, -1f, time) * 16f), 0, 15);
+                afterIrisOpens = time > 0.5f;
+                risingSulfur = Molecule.method_1121(pss.field_2744[0]);
+                risingQuicklime = Molecule.method_1121(pss.field_2744[1]);
+                risingPotash = Molecule.method_1121(pss.field_2744[2]);
+                risingMagnesia = Molecule.method_1121(pss.field_2744[3]);
+                risingAntimony = Molecule.method_1121(pss.field_2744[4]);
+                risingPhosphor = Molecule.method_1121(pss.field_2744[5]);
+                if (!afterIrisOpens)
+                {
+                    // show atom rising behind iris
+                    Editor.method_925(risingSulfur, risingOffsetSulfur, new HexIndex(0, 0), 0f, 1f, time, 1f, false, null);
+                    Editor.method_925(risingQuicklime, risingOffsetQuicklime, new HexIndex(0, 0), 0f, 1f, time, 1f, false, null);
+                    Editor.method_925(risingPotash, risingOffsetPotash, new HexIndex(0, 0), 0f, 1f, time, 1f, false, null);
+                    Editor.method_925(risingMagnesia, risingOffsetMagnesia, new HexIndex(0, 0), 0f, 1f, time, 1f, false, null);
+                    Editor.method_925(risingAntimony, risingOffsetAntimony, new HexIndex(0, 0), 0f, 1f, time, 1f, false, null);
+                    Editor.method_925(risingPhosphor, risingOffsetPhosphor, new HexIndex(0, 0), 0f, 1f, time, 1f, false, null);
+                }
+            }
+            renderer.method_529(irisSulfur[irisFrame], volatilitySulfurHex, Vector2.Zero); //Render Irises
+            renderer.method_529(irisQuicklime[irisFrame], volatilityQuicklimeHex, Vector2.Zero);
+            renderer.method_529(irisPotash[irisFrame], volatilityPotashHex, Vector2.Zero);
+            renderer.method_529(irisMagnesia[irisFrame], volatilityMagnesiaHex, Vector2.Zero);
+            renderer.method_529(irisAntimony[irisFrame], volatilityAntimonyHex, Vector2.Zero);
+            renderer.method_529(irisPhosphor[irisFrame], volatilityPhosphorHex, Vector2.Zero);
+            renderer.method_523(volatilityTop, Vector2.Zero, offset, 0f);
+            renderer.method_529(volatilityOpalescence, volatilityInputHex, Vector2.Zero);
+            drawPartGloss(renderer, volatilityGloss, volatilityGlossmask, offset);
+            if (pss.field_2743 && afterIrisOpens)
+            {
+                // show atom rising infront of iris
+                Editor.method_925(risingSulfur, risingOffsetSulfur, new HexIndex(0, 0), 0f, 1f, time, 1f, false, null);
+                Editor.method_925(risingQuicklime, risingOffsetQuicklime, new HexIndex(0, 0), 0f, 1f, time, 1f, false, null);
+                Editor.method_925(risingPotash, risingOffsetPotash, new HexIndex(0, 0), 0f, 1f, time, 1f, false, null);
+                Editor.method_925(risingMagnesia, risingOffsetMagnesia, new HexIndex(0, 0), 0f, 1f, time, 1f, false, null);
+                Editor.method_925(risingAntimony, risingOffsetAntimony, new HexIndex(0, 0), 0f, 1f, time, 1f, false, null);
+                Editor.method_925(risingPhosphor, risingOffsetPhosphor, new HexIndex(0, 0), 0f, 1f, time, 1f, false, null);
+            }
+        });
+
+
         QApi.AddPartTypeToPanel(CalcicBonder, false);
         QApi.AddPartTypeToPanel(Revolution, false);
         QApi.AddPartTypeToPanel(Synthesis, false);
@@ -646,11 +837,17 @@ internal static class PrimaMateriaParts
         QApi.AddPartTypeToPanel(Alignment, false);
         QApi.AddPartTypeToPanel(Displacement, false);
         QApi.AddPartTypeToPanel(EtherealBonder, false);
+        QApi.AddPartTypeToPanel(Affluence, false);
+        QApi.AddPartTypeToPanel(Volatility, false);
 
         QApi.RunAfterCycle((sim, first) => {
             var seb = sim.field_3818;
             List<Part> allParts = seb.method_502().field_3919;
             var simStates = sim.field_3821;
+            Maybe<AtomReference> maybeFindAtom(Part part, HexIndex hex, List<Part> list, bool checkWheels = false)
+            {
+                return (Maybe<AtomReference>)API.PrivateMethod<Sim>("method_1850").Invoke(sim, new object[] { part, hex, list, checkWheels });
+            }
 
             foreach (var part in allParts)
             {
@@ -860,7 +1057,7 @@ internal static class PrimaMateriaParts
                                             seb.field_3935.Add(new class_228(seb, (enum_7)1, class_187.field_1742.method_492(part.method_1184(subversionOutputLeft)), subversionBowlFlashAnimation, 30f, Vector2.Zero, 0f));
                                             seb.field_3935.Add(new class_228(seb, (enum_7)1, class_187.field_1742.method_492(part.method_1184(sublimationCenter)), subversionRingFlashGlowAnimation, 30f, Vector2.Zero, partInfo.field_1985).WithColor(leftcolor));
                                             seb.field_3935.Add(new class_228(seb, (enum_7)1, class_187.field_1742.method_492(part.method_1184(sublimationCenter)), subversionRingFlashAnimation, 30f, Vector2.Zero, partInfo.field_1985));
-                                            
+
                                             seb.field_3936.Add(new class_228(seb, (enum_7)1, class_187.field_1742.method_492(part.method_1184(subversionOutputRight)), AtomFlashAnimation, 30f, Vector2.Zero, 0f));
                                             Brimstone.API.ChangeAtom(volatileRight, recipe.rightoutput);
                                             seb.field_3935.Add(new class_228(seb, (enum_7)1, class_187.field_1742.method_492(part.method_1184(subversionOutputRight)), subversionBowlFlashGlowAnimation, 30f, Vector2.Zero, 0f).WithColor(rightcolor));
@@ -895,19 +1092,7 @@ internal static class PrimaMateriaParts
                 else if (type == Alignment)
                 {
                     // Does atom exist
-                    bool inputExists = false;
-                    if (sim.FindAtomRelative(part, alignmentPrimeHex).method_99(out AtomReference PrimeAtomReference))
-                    {
-                        inputExists = true;
-                    }
-                    else if (Wheel_Fabienne.MaybeFindFabienneWheelAtom(sim, part, alignmentPrimeHex).method_99(out PrimeAtomReference))
-                    {
-                        inputExists = true;
-                    }
-                    else if (Wheel_Tullas.MaybeFindTullasWheelAtom(sim, part, alignmentPrimeHex).method_99(out PrimeAtomReference))
-                    {
-                        inputExists = true;
-                    }
+                    bool inputExists = maybeFindAtom(part, alignmentPrimeHex, new List<Part>(), true).method_99(out AtomReference PrimeAtomReference);
                     if (inputExists == true)
                     {
                         if (sim.FindAtomRelative(part, alignmentPrimaeHex).method_99(out AtomReference PrimaeAtomReference))
@@ -956,8 +1141,8 @@ internal static class PrimaMateriaParts
                 else if (type == CalcicBonder)
                 {
                     // Is every bowl filled
-                    if (sim.FindAtomRelative(part, calcicLeft).method_99(out AtomReference leftAtom) 
-                    && sim.FindAtomRelative(part, calcicMiddle).method_99(out AtomReference middleAtom) 
+                    if (sim.FindAtomRelative(part, calcicLeft).method_99(out AtomReference leftAtom)
+                    && sim.FindAtomRelative(part, calcicMiddle).method_99(out AtomReference middleAtom)
                     && sim.FindAtomRelative(part, calcicRight).method_99(out AtomReference rightAtom))
                     {
                         // Is at least one of the atoms salt
@@ -993,6 +1178,123 @@ internal static class PrimaMateriaParts
                             Brimstone.API.JoinMoleculesAtHexes(sim, part, etherealLeft, etherealRight);
                             Brimstone.API.AddBond(sim, part, etherealLeft, etherealRight, (BondType)Bonds.ETHEREAL_BOND, true, true);
                         }
+                    }
+                }
+                else if (type == Affluence)
+                {
+                    // are all atoms in the bowls
+                    if (sim.FindAtomRelative(part, affluenceSulfurHex).method_99(out AtomReference bowlAtom) &&
+                    sim.FindAtomRelative(part, affluenceQuicklimeHex).method_99(out AtomReference inputAtom1) &&
+                    sim.FindAtomRelative(part, affluencePotashHex).method_99(out AtomReference inputAtom2) &&
+                    sim.FindAtomRelative(part, affluenceMagnesiaHex).method_99(out AtomReference inputAtom3) &&
+                    sim.FindAtomRelative(part, affluenceAntimonyHex).method_99(out AtomReference inputAtom4) &&
+                    sim.FindAtomRelative(part, affluencePhosphorHex).method_99(out AtomReference inputAtom5))
+                    {
+                        bool invalidinput = false; // make sure every input atom is unbound and not being held (except for the center bowl hex!)
+                        AtomReference[] inputReferences = new AtomReference[5]{inputAtom1,inputAtom2,inputAtom3,inputAtom4,inputAtom5};
+                        foreach (AtomReference atom in inputReferences)
+                        {
+                            if (atom.field_2281 && atom.field_2282)
+                            {
+                                invalidinput = true;
+                                break;
+                            }
+                        }
+                        if (!invalidinput)
+                        {
+                            // Check that every atom in a recipe exists
+                            AtomType[] allTypes = new AtomType[6] { bowlAtom.field_2280, inputAtom1.field_2280, inputAtom2.field_2280, inputAtom3.field_2280, inputAtom4.field_2280, inputAtom5.field_2280 };
+                            foreach (API.AffluenceRecipe recipe in API.AffluenceTransmutation)
+                            {
+                                if (allTypes.Contains(recipe.sulfur) &&
+                                allTypes.Contains(recipe.quicklime) &&
+                                allTypes.Contains(recipe.potash) &&
+                                allTypes.Contains(recipe.magnesia) &&
+                                allTypes.Contains(recipe.antimony) &&
+                                allTypes.Contains(recipe.phosphor))
+                                {
+                                    foreach (AtomReference atom in inputReferences)
+                                    {
+                                        Brimstone.API.RemoveAtom(atom);
+                                        seb.field_3937.Add(new(seb, atom.field_2278, atom.field_2280));
+                                        Brimstone.API.DrawFallingAtom(seb, atom);
+                                    }
+                                    Brimstone.API.ChangeAtom(bowlAtom, recipe.opalescence);
+                                    Color glowcolor = new Color(0f, 0f, 0f, 0f);
+                                    foreach (API.AtomColor assignment in API.AtomColorsList)
+                                    {
+                                        if (assignment.atom == recipe.opalescence)
+                                        {
+                                            glowcolor = assignment.color;
+                                        }
+                                    }
+                                    seb.field_3936.Add(new class_228(seb, (enum_7)1, class_187.field_1742.method_492(part.method_1184(affluenceSulfurHex)), AtomFlashAnimation, 30f, Vector2.Zero, 0f));
+                                    seb.field_3935.Add(new class_228(seb, (enum_7)1, class_187.field_1742.method_492(part.method_1184(affluenceSulfurHex)), subversionBowlFlashGlowAnimation, 30f, Vector2.Zero, 0f).WithColor(glowcolor));
+                                    seb.field_3935.Add(new class_228(seb, (enum_7)1, class_187.field_1742.method_492(part.method_1184(affluenceSulfurHex)), subversionBowlFlashAnimation, 30f, Vector2.Zero, 0f));
+                                    Brimstone.API.PlaySound(sim, Sounds.Affluence);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+                else if (type == Volatility)
+                {
+                    HexIndex[] outputHexes = new HexIndex[6]
+                    {
+                        volatilitySulfurHex,
+                        volatilityQuicklimeHex,
+                        volatilityPotashHex,
+                        volatilityMagnesiaHex,
+                        volatilityAntimonyHex,
+                        volatilityPhosphorHex,
+                    };
+                    if (first)
+                    {
+                        // Does atom exist
+                        if (sim.FindAtomRelative(part, volatilityInputHex).method_99(out AtomReference atomIn))
+                        {
+                            bool blocked = false; // check all hexes, from MetalQuintessence
+                            foreach (HexIndex h in outputHexes)
+                            {
+                                if (sim.FindAtomRelative(part, h).method_1085())
+                                {
+                                    blocked = true;
+                                    break;
+                                }
+                            }
+                            if (!blocked)
+                            {
+                                // if atom isn't being held or consumed
+                                if (!atomIn.field_2281 && !atomIn.field_2282)
+                                {
+
+                                    //check atom type
+                                    foreach (API.VolatilityRecipe recipe in API.VolatilityTransmutation)
+                                    {
+                                        if (recipe.opalescence == (atomIn.field_2280))
+                                        {
+                                            Brimstone.API.RemoveAtom(atomIn);
+                                            seb.field_3937.Add(new(seb, atomIn.field_2278, recipe.opalescence));
+                                            Brimstone.API.DrawFallingAtom(seb, atomIn);
+                                            pss.field_2743 = true;
+                                            pss.field_2744 = new AtomType[6] { recipe.sulfur, recipe.quicklime, recipe.potash, recipe.magnesia, recipe.antimony, recipe.phosphor };
+                                            Brimstone.API.PlaySound(sim, Sounds.Volatility);
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else if (pss.field_2743)
+                    {
+                        Brimstone.API.AddAtom(sim, part, volatilitySulfurHex, pss.field_2744[0]);
+                        Brimstone.API.AddAtom(sim, part, volatilityQuicklimeHex, pss.field_2744[1]);
+                        Brimstone.API.AddAtom(sim, part, volatilityPotashHex, pss.field_2744[2]);
+                        Brimstone.API.AddAtom(sim, part, volatilityMagnesiaHex, pss.field_2744[3]);
+                        Brimstone.API.AddAtom(sim, part, volatilityAntimonyHex, pss.field_2744[4]);
+                        Brimstone.API.AddAtom(sim, part, volatilityPhosphorHex, pss.field_2744[5]);
                     }
                 }
             }

@@ -5,7 +5,7 @@ namespace PrimaMateria;
 
 public static class PrimaMateriaAtoms
 {
-    public static AtomType Sulfur, Phosphor, Antimony, Magnesia, Potash, Quicklime, Primae;
+    public static AtomType Sulfur, Phosphor, Antimony, Magnesia, Potash, Quicklime, Opalescence, Primae;
 
     public static void AddAtomTypes()
     {
@@ -67,6 +67,14 @@ public static class PrimaMateriaAtoms
             pathToDiffuse: "textures/atoms/PrimaMateria/quicklime_diffuse",
             pathToShade: "textures/atoms/PrimaMateria/quicklime_shade"
         );
+        Opalescence = Brimstone.API.CreateNormalAtom(
+            ID: 162,
+            modName: "PrimaMateria",
+            name: "Opalescence",
+            pathToSymbol: "textures/atoms/PrimaMateria/opalescence_symbol",
+            pathToDiffuse: "textures/atoms/PrimaMateria/opalescence_diffuse",
+            pathToShade: "textures/atoms/PrimaMateria/opalescence_shade"
+        );
 
         // Primae
         Primae = Brimstone.API.CreateNormalAtom(
@@ -86,5 +94,6 @@ public static class PrimaMateriaAtoms
         QApi.AddAtomType(Potash);
         QApi.AddAtomType(Quicklime);
         QApi.AddAtomType(Primae);
+        QApi.AddAtomType(Opalescence);
     }
 }

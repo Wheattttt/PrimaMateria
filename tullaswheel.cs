@@ -102,7 +102,7 @@ public static class Wheel_Tullas
             /*Name*/
             field_1529 = class_134.method_253("Tullas' Wheel", string.Empty),
             /*Desc*/
-            field_1530 = class_134.method_253("By using Tullas's wheel with the glyph of Alignment, Primae can be molded into any form of matter.", string.Empty),
+            field_1530 = class_134.method_253("By using Tullas's wheel with the glyph of alignment, Primae can be molded into any form of matter.", string.Empty),
             /*Cost*/
             field_1531 = 30,
             /*Type*/
@@ -121,8 +121,12 @@ public static class Wheel_Tullas
             field_1552 = true,
             CustomPermissionCheck = perms => perms.Contains("PrimaMateria: Tullas' Wheel")
         };
-        foreach (var hex in HexIndex.AdjacentOffsets) Tullas.field_1544.Add(hex, PrimaMateriaAtoms.Sulfur);
-
+        Tullas.field_1544.Add(new HexIndex(0, 1), Brimstone.API.VanillaAtoms.quicksilver);
+        Tullas.field_1544.Add(new HexIndex(1, 0), Brimstone.API.VanillaAtoms.salt);
+        Tullas.field_1544.Add(new HexIndex(1, -1), PrimaMateriaAtoms.Sulfur);
+        Tullas.field_1544.Add(new HexIndex(0, -1), Brimstone.API.VanillaAtoms.quicksilver);
+        Tullas.field_1544.Add(new HexIndex(-1, 0), Brimstone.API.VanillaAtoms.salt);
+        Tullas.field_1544.Add(new HexIndex(-1, 1), PrimaMateriaAtoms.Sulfur);
 
         QApi.AddPartTypeToPanel(Tullas, Berlo);
         QApi.AddPartType(Tullas, DrawTullasPart);
