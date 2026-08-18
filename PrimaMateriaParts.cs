@@ -839,21 +839,15 @@ internal static class PrimaMateriaParts
         QApi.AddPartTypeToPanel(EtherealBonder, false);
         QApi.AddPartTypeToPanel(Affluence, false);
         QApi.AddPartTypeToPanel(Volatility, false);
-
-        QApi.RunAfterCycle((sim, first) => {
+        QApi.RunDuringCycle(static (sim, part, pss, first) => {
             var seb = sim.field_3818;
-            List<Part> allParts = seb.method_502().field_3919;
             var simStates = sim.field_3821;
             Maybe<AtomReference> maybeFindAtom(Part part, HexIndex hex, List<Part> list, bool checkWheels = false)
             {
                 return (Maybe<AtomReference>)API.PrivateMethod<Sim>("method_1850").Invoke(sim, new object[] { part, hex, list, checkWheels });
             }
-
-            foreach (var part in allParts)
-            {
-                PartSimState pss = simStates[part];
-                var type = part.method_1159();
-                if (type == Synthesis)
+            var type = part.method_1159();
+            if (type == Synthesis)
                 {
                     if (first)
                     {
@@ -892,7 +886,7 @@ internal static class PrimaMateriaParts
                         Brimstone.API.AddAtom(sim, part, synthesisOutput, pss.field_2744[0]);
                     }
                 }
-                else if (type == Revolution)
+            else if (type == Revolution)
                 {
                     // Is atom in bowl
                     if (sim.FindAtomRelative(part, revBowl).method_99(out AtomReference volatileReference))
@@ -971,7 +965,7 @@ internal static class PrimaMateriaParts
                         }
                     }
                 }
-                else if (type == Inversion)
+            else if (type == Inversion)
                 {
                     if (first)
                     {
@@ -1007,7 +1001,7 @@ internal static class PrimaMateriaParts
                         Brimstone.API.AddAtom(sim, part, inversionOutput, pss.field_2744[0]);
                     }
                 }
-                else if (type == Subversion)
+            else if (type == Subversion)
                 {
                     // Does atom exist
                     bool inputExists = false;
@@ -1073,7 +1067,7 @@ internal static class PrimaMateriaParts
                         }
                     }
                 }
-                else if (type == Sublimation)
+            else if (type == Sublimation)
                 {
                     // Does atom exist
                     if (sim.FindAtomRelative(part, sublimationCenter).method_99(out AtomReference PrimeReference))
@@ -1089,7 +1083,7 @@ internal static class PrimaMateriaParts
                         }
                     }
                 }
-                else if (type == Alignment)
+            else if (type == Alignment)
                 {
                     // Does atom exist
                     bool inputExists = maybeFindAtom(part, alignmentPrimeHex, new List<Part>(), true).method_99(out AtomReference PrimeAtomReference);
@@ -1111,7 +1105,7 @@ internal static class PrimaMateriaParts
                         }
                     }
                 }
-                else if (type == Displacement)
+            else if (type == Displacement)
                 {
                     // Does primae exist
                     if (sim.FindAtomRelative(part, displacementPrimaeHex).method_99(out AtomReference PrimaeAtom))
@@ -1138,7 +1132,7 @@ internal static class PrimaMateriaParts
                         }
                     }
                 }
-                else if (type == CalcicBonder)
+            else if (type == CalcicBonder)
                 {
                     // Is every bowl filled
                     if (sim.FindAtomRelative(part, calcicLeft).method_99(out AtomReference leftAtom)
@@ -1157,7 +1151,7 @@ internal static class PrimaMateriaParts
                         }
                     }
                 }
-                else if (type == EtherealBonder)
+            else if (type == EtherealBonder)
                 {
                     // Are both bowls and the input filled
                     if (sim.FindAtomRelative(part, etherealLeft).method_99(out AtomReference leftAtom)
@@ -1180,7 +1174,7 @@ internal static class PrimaMateriaParts
                         }
                     }
                 }
-                else if (type == Affluence)
+            else if (type == Affluence)
                 {
                     // are all atoms in the bowls
                     if (sim.FindAtomRelative(part, affluenceSulfurHex).method_99(out AtomReference bowlAtom) &&
@@ -1238,7 +1232,7 @@ internal static class PrimaMateriaParts
                         }
                     }
                 }
-                else if (type == Volatility)
+            else if (type == Volatility)
                 {
                     HexIndex[] outputHexes = new HexIndex[6]
                     {
@@ -1297,7 +1291,6 @@ internal static class PrimaMateriaParts
                         Brimstone.API.AddAtom(sim, part, volatilityPhosphorHex, pss.field_2744[5]);
                     }
                 }
-            }
         });
     }
 }
