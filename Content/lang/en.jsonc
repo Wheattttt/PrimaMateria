@@ -1,0 +1,111 @@
+{
+  "primamateria": {
+    "": "Prima Materia",
+    "description": "Prima Materia adds the third of the Tria Prima - Sulfur, a new set of elements associated with it, and Primae, the underlying substance that brings all matter into existence.",
+    "atoms": {
+      "sulfur": {
+        "": "Sulfur",
+        "elemental": "Elemental Sulfur"
+      },
+	  "quicklime": {
+        "": "Quicklime",
+        "elemental": "Elemental Quicklime"
+      },
+	  "potash": {
+        "": "Potash",
+        "elemental": "Elemental Potash"
+      },
+	  "magnesia": {
+        "": "Magnesia",
+        "elemental": "Elemental Magnesia"
+      },
+	  "antimony": {
+        "": "Antimony",
+        "elemental": "Elemental Antimony"
+      },
+	  "phosphor": {
+        "": "Phosphor",
+        "elemental": "Elemental Phosphor"
+      },
+	  "opalescence": {
+        "": "Opalescence",
+        "elemental": "Elemental Opalescence"
+      },
+	  "primae": {
+        "": "Primae",
+        "elemental": "Elemental Primae"
+      }
+    },
+	"parts": {
+      "calcicbonder": {
+        "": "Glyph of Calcic Bonding",
+        "description": "The glyph of calcic bonding creates a special bond across three atoms at once, as long as at least one of them is neutral salt."
+      },
+      "revolution": {
+        "": "Glyph of Revolution",
+        "description": "The glyph of revolution accepts a volatile in either the clockwise or counter-clockwise slots to revolve the volatile element in the center in that direction along the volatile wheel."
+      },
+	  "synthesis": {
+        "": "Glyph of Synthesis",
+        "description": "The glyph of synthesis accepts two of the Tria Prima (Salt, Quicksilver, and Sulfur), outputting the third."
+      },
+	  "inversion": {
+        "": "Glyph of Inversion",
+        "description": "The glyph of inversion accepts a volatile-type atom and outputs its inverse form."
+      },
+	  "subversion": {
+        "": "Glyph of Subversion",
+        "description": "The glyph of subversion copies a volatile's two triadic partners onto another two volatile atoms."
+      },
+	  "sublimation": {
+        "": "Glyph of Sublimation",
+        "description": "The glyph of sublimation is capable of unimpressing atoms of the Tria Prima into atoms of pure primae."
+      },
+	  "alignment": {
+        "": "Glyph of Alignment",
+        "description": "The glyph of alignment copies the impression of any of the Tria Prima onto pure unimpressed primae."
+      },
+	  "displacement": {
+        "": "Glyph of Displacement",
+        "description": "The glyph of displacement accepts primae to switch the positions of the atoms in the two inputs, without destroying their bonds."
+      },
+	  "etherealbonder": {
+        "": "Glyph of Ethereal Bonding",
+        "description": "The glyph of ethereal bonding takes one atom of Primae to create a special kind of bond between two atoms of the same type."
+      },
+	  "affluence": {
+        "": "Glyph of Affluence",
+        "description": "The glyph of affluence transmutes one atom of each of the six volatile elements into one atom of opalescence."
+      },
+	  "volatility": {
+        "": "Glyph of Volatility",
+        "description": "The glyph of volatility transmutes one atom of opalescence into one atom of each of the six volatile elements."
+      },
+	  "tullaswheel": {
+        "": "Tullas' Wheel",
+        "description": "By using Tullas's wheel with the glyph of alignment, Primae can be molded into any form of matter."
+      },
+	  "fabiennewheel": {
+        "": "Fabienne's Wheel",
+        "description": "By using Fabienne's wheel with the glyph of subversion, any of the six volatile elements can be transformed freely."
+      }
+    },
+	"permission_sections": "Prima Materia",
+    "permissions": {
+      "calcicbonder": "Glyph of Calcic Bonding",
+      "revolution": "Glyph of Revolution",
+      "synthesis": "Glyph of Synthesis",
+      "inversion": "Glyph of Inversion",
+	  "subversion": "Glyph of Subversion",
+      "sublimation": "Glyph of Sublimation",
+      "alignment": "Glyph of Alignment",
+      "displacement": "Glyph of Displacement",
+	  "etherealbonder": "Glyph of Ethereal Bonding",
+      "affluence": "Glyph of Affluence",
+      "volatility": "Glyph of Volatility",
+	  "tullaswheel": "Tullas' Wheel",
+      "fabiennewheel": "Fabienne's Wheel"
+    }
+
+  }
+}
