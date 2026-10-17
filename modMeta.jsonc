@@ -1,14 +1,14 @@
 {
   "mod_id": "primamateria",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "mod_page_url": "",
   "dll": "PrimaMateria.dll",
   "authors": [],
   "icon": "textures/primamateria/icon",
   "mappings": "",
   "dependencies": {
-    "quintessential_core": "[0.7.0,)",
-    "quintessential_data": "[0.7.0,)"
+    "quintessential_core": "[0.8.1,)",
+    "quintessential_data": "[0.8.1,)"
   },
   "conflicts": []
 }
