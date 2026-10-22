@@ -30,9 +30,6 @@ namespace PrimaMateria
             );
             PrimaMateria.Instance.AddBondType(Calcic);
 
-
-
-
             var EtherealTextures = new BondTexture
             {
                 texture = AssetLoaderHelper.LoadTexture("textures/primamateria/bonds/ethereal"),

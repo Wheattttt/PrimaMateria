@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using UnstableElements;
 using static Quintessential.PartCycleDelegate;
 
 namespace PrimaMateria;
@@ -40,7 +39,7 @@ internal static class Wheels
             permissionCategory = PuzzlePermissions.None,
             CustomPermissionCheck = perms => perms.Contains(PrimaMateria.Instance.GetIdentifier("tullaswheel"))
         };
-        QApi.AddPartTypeToPanel(TullasWheel, false);
+        QApi.AddPartTypeToPanel(TullasWheel, true);
         PrimaMateria.Instance.AddPartType(TullasWheel, "tullaswheel", (part, pos, editor, renderer) => {});
         PrimaMateria.Instance.AddPuzzlePermission("tullaswheel");
 
@@ -65,7 +64,7 @@ internal static class Wheels
             permissionCategory = PuzzlePermissions.None,
             CustomPermissionCheck = perms => perms.Contains(PrimaMateria.Instance.GetIdentifier("fabiennewheel"))
         };
-        QApi.AddPartTypeToPanel(FabienneWheel, false);
+        QApi.AddPartTypeToPanel(FabienneWheel, true);
         PrimaMateria.Instance.AddPartType(FabienneWheel, "fabiennewheel", (part, pos, editor, renderer) => { });
         PrimaMateria.Instance.AddPuzzlePermission("fabiennewheel");
     }

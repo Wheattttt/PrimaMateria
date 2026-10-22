@@ -11,7 +11,7 @@ using static Quintessential.PartCycleDelegate;
 using static StringLoader;
 using static TextureAssets;
 
-namespace UnstableElements;
+namespace PrimaMateria;
 
 internal static class PartsCycle
 {
@@ -151,8 +151,8 @@ internal static class PartsCycle
                                     };
                                     GlyphEffect flashEffect = new(sim.solutionEditor, (EffectTimescaleType)1, posAsVec, Parts.subversionBowlFlashAnimation, 30f, Vector2.Zero, 0);
                                     GlyphEffect atomflashEffect = new(sim.solutionEditor, (EffectTimescaleType)1, posAsVec, Parts.AtomFlashAnimation, 30f, Vector2.Zero, 0);
-                                    sim.solutionEditor.glyphEffects.Add(glowEffect);
-                                    sim.solutionEditor.glyphEffects.Add(flashEffect);
+                                    sim.solutionEditor.consumptionEffects.Add(glowEffect);
+                                    sim.solutionEditor.consumptionEffects.Add(flashEffect);
                                     sim.solutionEditor.glyphEffects.Add(atomflashEffect);
                                     return true;
                                 }
@@ -181,8 +181,8 @@ internal static class PartsCycle
                                     ;
                                     GlyphEffect flashEffect = new(sim.solutionEditor, (EffectTimescaleType)1, posAsVec, Parts.subversionBowlFlashAnimation, 30f, Vector2.Zero, 0);
                                     GlyphEffect atomflashEffect = new(sim.solutionEditor, (EffectTimescaleType)1, posAsVec, Parts.AtomFlashAnimation, 30f, Vector2.Zero, 0);
-                                    sim.solutionEditor.glyphEffects.Add(glowEffect);
-                                    sim.solutionEditor.glyphEffects.Add(flashEffect);
+                                    sim.solutionEditor.consumptionEffects.Add(glowEffect);
+                                    sim.solutionEditor.consumptionEffects.Add(flashEffect);
                                     sim.solutionEditor.glyphEffects.Add(atomflashEffect);
                                     return true;
                                 }
@@ -310,17 +310,17 @@ internal static class PartsCycle
 
                                 sim.solutionEditor.glyphEffects.Add(new GlyphEffect(sim.solutionEditor, (EffectTimescaleType)1, leftVec, Parts.AtomFlashAnimation, 30f, Vector2.Zero, 0));
                                 ChangeAtom(volatileLeft, recipe.leftoutput);
-                                sim.solutionEditor.glyphEffects.Add(new GlyphEffect(sim.solutionEditor, (EffectTimescaleType)1, leftVec, Parts.subversionBowlFlashGlowAnimation, 30f, Vector2.Zero, 0){Color = leftcolor});
-                                sim.solutionEditor.glyphEffects.Add(new GlyphEffect(sim.solutionEditor, (EffectTimescaleType)1, leftVec, Parts.subversionBowlFlashAnimation, 30f, Vector2.Zero, 0));
-                                sim.solutionEditor.glyphEffects.Add(new GlyphEffect(sim.solutionEditor, (EffectTimescaleType)1, centerVec, Parts.subversionRingFlashGlowAnimation, 30f, Vector2.Zero, partInfo.rotation) { Color = leftcolor });
-                                sim.solutionEditor.glyphEffects.Add(new GlyphEffect(sim.solutionEditor, (EffectTimescaleType)1, centerVec, Parts.subversionRingFlashAnimation, 30f, Vector2.Zero, partInfo.rotation));
+                                sim.solutionEditor.consumptionEffects.Add(new GlyphEffect(sim.solutionEditor, (EffectTimescaleType)1, leftVec, Parts.subversionBowlFlashGlowAnimation, 30f, Vector2.Zero, 0){Color = leftcolor});
+                                sim.solutionEditor.consumptionEffects.Add(new GlyphEffect(sim.solutionEditor, (EffectTimescaleType)1, leftVec, Parts.subversionBowlFlashAnimation, 30f, Vector2.Zero, 0));
+                                sim.solutionEditor.consumptionEffects.Add(new GlyphEffect(sim.solutionEditor, (EffectTimescaleType)1, centerVec, Parts.subversionRingFlashGlowAnimation, 30f, Vector2.Zero, partInfo.rotation) { Color = leftcolor });
+                                sim.solutionEditor.consumptionEffects.Add(new GlyphEffect(sim.solutionEditor, (EffectTimescaleType)1, centerVec, Parts.subversionRingFlashAnimation, 30f, Vector2.Zero, partInfo.rotation));
                                 
                                 sim.solutionEditor.glyphEffects.Add(new GlyphEffect(sim.solutionEditor, (EffectTimescaleType)1, rightVec, Parts.AtomFlashAnimation, 30f, Vector2.Zero, 0));
                                 ChangeAtom(volatileRight, recipe.rightoutput);
-                                sim.solutionEditor.glyphEffects.Add(new GlyphEffect(sim.solutionEditor, (EffectTimescaleType)1, rightVec, Parts.subversionBowlFlashGlowAnimation, 30f, Vector2.Zero, 0) { Color = rightcolor });
-                                sim.solutionEditor.glyphEffects.Add(new GlyphEffect(sim.solutionEditor, (EffectTimescaleType)1, rightVec, Parts.subversionBowlFlashAnimation, 30f, Vector2.Zero, 0));
-                                sim.solutionEditor.glyphEffects.Add(new GlyphEffect(sim.solutionEditor, (EffectTimescaleType)1, centerVec, Parts.subversionRingFlashGlowAnimation, 30f, Vector2.Zero, (partInfo.rotation + (sixtyDegrees * 2))) { Color = rightcolor });
-                                sim.solutionEditor.glyphEffects.Add(new GlyphEffect(sim.solutionEditor, (EffectTimescaleType)1, centerVec, Parts.subversionRingFlashAnimation, 30f, Vector2.Zero, (partInfo.rotation + (sixtyDegrees * 2))));
+                                sim.solutionEditor.consumptionEffects.Add(new GlyphEffect(sim.solutionEditor, (EffectTimescaleType)1, rightVec, Parts.subversionBowlFlashGlowAnimation, 30f, Vector2.Zero, 0) { Color = rightcolor });
+                                sim.solutionEditor.consumptionEffects.Add(new GlyphEffect(sim.solutionEditor, (EffectTimescaleType)1, rightVec, Parts.subversionBowlFlashAnimation, 30f, Vector2.Zero, 0));
+                                sim.solutionEditor.consumptionEffects.Add(new GlyphEffect(sim.solutionEditor, (EffectTimescaleType)1, centerVec, Parts.subversionRingFlashGlowAnimation, 30f, Vector2.Zero, (partInfo.rotation + (sixtyDegrees * 2))) { Color = rightcolor });
+                                sim.solutionEditor.consumptionEffects.Add(new GlyphEffect(sim.solutionEditor, (EffectTimescaleType)1, centerVec, Parts.subversionRingFlashAnimation, 30f, Vector2.Zero, (partInfo.rotation + (sixtyDegrees * 2))));
                                 return true;
                             }
                         }
@@ -343,7 +343,7 @@ internal static class PartsCycle
                 ChangeAtom(PrimeReference, Atoms.Primae);
                 PrimeReference.atom.transmutationEffect = new TransmutationEffect(sim.solutionEditor, (TransmutationEffectRenderMode)1, PrimeReference.atomType, Assets.textures.atoms.projection_effect, 30f);
                 Vector2 centerVec = HexGrid.standardGrid.ToPixelCoords(part.InFrontBy(Parts.revBowl));
-                sim.solutionEditor.glyphEffects.Add(new GlyphEffect(sim.solutionEditor, (EffectTimescaleType)1, centerVec, Parts.sublimationFlashAnimation, 30f, Vector2.Zero, partInfo.rotation));
+                sim.solutionEditor.consumptionEffects.Add(new GlyphEffect(sim.solutionEditor, (EffectTimescaleType)1, centerVec, Parts.sublimationFlashAnimation, 30f, Vector2.Zero, partInfo.rotation));
                 return true;
             }
         }
@@ -365,7 +365,7 @@ internal static class PartsCycle
                         ChangeAtom(PrimaeAtomReference, PrimeAtomReference.atomType);
                         PrimaeAtomReference.atom.transmutationEffect = new TransmutationEffect(sim.solutionEditor, (TransmutationEffectRenderMode)1, PrimaeAtomReference.atomType, Assets.textures.atoms.projection_effect, 30f);
                         Vector2 centerVec = HexGrid.standardGrid.ToPixelCoords(part.InFrontBy(Parts.alignmentPrimaeHex));
-                        sim.solutionEditor.glyphEffects.Add(new GlyphEffect(sim.solutionEditor, (EffectTimescaleType)1, centerVec, Parts.alignmentFlashAnimation, 30f, Vector2.Zero, 0f));
+                        sim.solutionEditor.consumptionEffects.Add(new GlyphEffect(sim.solutionEditor, (EffectTimescaleType)1, centerVec, Parts.alignmentFlashAnimation, 30f, Vector2.Zero, 0f));
                         Sounds.glyph_alignment.PlaySound(sim.solutionEditor.method_506());
                         return true;
                     }
@@ -393,8 +393,8 @@ internal static class PartsCycle
                     ChangeAtom(RightSwapAtom, LeftSwapAtomTemp);
                     Vector2 leftVec = HexGrid.standardGrid.ToPixelCoords(part.InFrontBy(Parts.displacementLeftSwapHex));
                     Vector2 rightVec = HexGrid.standardGrid.ToPixelCoords(part.InFrontBy(Parts.displacementRightSwapHex));
-                    sim.solutionEditor.glyphEffects.Add(new GlyphEffect(sim.solutionEditor, (EffectTimescaleType)1, leftVec, Parts.alignmentFlashAnimation, 30f, Vector2.Zero, 0f));
-                    sim.solutionEditor.glyphEffects.Add(new GlyphEffect(sim.solutionEditor, (EffectTimescaleType)1, rightVec, Parts.alignmentFlashAnimation, 30f, Vector2.Zero, 0f));
+                    sim.solutionEditor.consumptionEffects.Add(new GlyphEffect(sim.solutionEditor, (EffectTimescaleType)1, leftVec, Parts.alignmentFlashAnimation, 30f, Vector2.Zero, 0f));
+                    sim.solutionEditor.consumptionEffects.Add(new GlyphEffect(sim.solutionEditor, (EffectTimescaleType)1, rightVec, Parts.alignmentFlashAnimation, 30f, Vector2.Zero, 0f));
                     LeftSwapAtom.atom.transmutationEffect = new TransmutationEffect(sim.solutionEditor, (TransmutationEffectRenderMode)1, LeftSwapAtom.atomType, Assets.textures.atoms.projection_effect, 30f);
                     RightSwapAtom.atom.transmutationEffect = new TransmutationEffect(sim.solutionEditor, (TransmutationEffectRenderMode)1, RightSwapAtom.atomType, Assets.textures.atoms.projection_effect, 30f);
 
@@ -426,6 +426,7 @@ internal static class PartsCycle
                     sim.solutionEditor.consumptionEffects.Add(new ConsumptionEffect(sim.solutionEditor, new AtomReference[] { inputAtom }));
                     BondTexture bondTexture = Bonds.Ethereal.bondTexture;
                     BondEffect bondEffect = new(sim.solutionEditor, bondTexture.bondAnim, 60f, bondTexture.textureOffset);
+
                     Molecule molecule = leftAtom.molecule;
                     // merge the left atom with the right if it is separate
                     if (molecule != rightAtom.molecule)
@@ -447,7 +448,7 @@ internal static class PartsCycle
 
                         simState.wasActivated = true;
                     }
-                    bondTexture.bondSound.PlaySound(sim.solutionEditor.method_506());
+                    Sounds.glyph_etherealbonder.PlaySound(sim.solutionEditor.method_506());
                     return true;
                 }
             }
