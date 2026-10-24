@@ -22,16 +22,16 @@ namespace PrimaMateria
             glyph_synthesis = AssetLoaderHelper.LoadSound("sounds/primamateria/glyph_synthesis");
             glyph_volatility = AssetLoaderHelper.LoadSound("sounds/primamateria/glyph_volatility");
 
-            Volume.SetVoulme(glyph_calcicbonder, 0.25f);
-            Volume.SetVoulme(glyph_etherealbonder, 0.3f);
-            Volume.SetVoulme(glyph_affluence, 0.35f);
-            Volume.SetVoulme(glyph_alignment, 0.2f);
-            Volume.SetVoulme(glyph_inversion, 0.25f);
-            Volume.SetVoulme(glyph_revolution, 0.15f);
-            Volume.SetVoulme(glyph_sublimation, 0.2f);
-            Volume.SetVoulme(glyph_subversion, 0.25f);
-            Volume.SetVoulme(glyph_synthesis, 0.3f);
-            Volume.SetVoulme(glyph_volatility, 0.35f);
+            Volume.SetVolume(glyph_calcicbonder, 0.25f);
+            Volume.SetVolume(glyph_etherealbonder, 0.3f);
+            Volume.SetVolume(glyph_affluence, 0.35f);
+            Volume.SetVolume(glyph_alignment, 0.2f);
+            Volume.SetVolume(glyph_inversion, 0.25f);
+            Volume.SetVolume(glyph_revolution, 0.15f);
+            Volume.SetVolume(glyph_sublimation, 0.2f);
+            Volume.SetVolume(glyph_subversion, 0.25f);
+            Volume.SetVolume(glyph_synthesis, 0.3f);
+            Volume.SetVolume(glyph_volatility, 0.35f);
         }
     }
 }

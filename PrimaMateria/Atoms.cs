@@ -11,6 +11,10 @@ namespace PrimaMateria
         public static AtomType Sulfur, Quicklime, Potash, Magnesia, Antimony, Phosphor, Opalescence, Primae;
         public static void AddAtomTypes()
         {
+            // make quicksilver gray
+            AtomTypes.quicksilver.matteTextures.diffuse = AssetLoaderHelper.LoadTexture("textures/primamateria/atoms/quicksilver_diffuse");
+            AtomTypes.quicksilver.matteTextures.shade = AssetLoaderHelper.LoadTexture("textures/primamateria/atoms/quicksilver_shade");
+            AtomTypes.quicksilver.symbol = AssetLoaderHelper.LoadTexture("textures/primamateria/atoms/quicksilver_symbol");
             Sulfur = new()
             {
                 shadow = Assets.textures.atoms.shadow,
