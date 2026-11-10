@@ -1,9 +1,4 @@
-﻿using MonoMod.Utils;
-using Quintessential;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
+﻿using Quintessential;
 using static Quintessential.PartCycleDelegate;
 
 namespace PrimaMateria;
@@ -240,8 +235,8 @@ internal static class Parts
             isFullHexCover = true, // Is a glyph
             glowTexture = revolutionGlow,
             strokeTexture = revolutionStroke,
-            baseTexture = calcicIcon, // Panel icon
-            hoverTexture = calcicHover, // Hovered panel icon
+            iconTexture = calcicIcon, // Panel icon
+            iconHoverTexture = calcicHover, // Hovered panel icon
             glyphHexes = new HexIndex[]
             {
                 calcicMiddle,
@@ -281,8 +276,8 @@ internal static class Parts
             isFullHexCover = true,
             glowTexture = revolutionGlow,
             strokeTexture = revolutionStroke,
-            baseTexture = revolutionIcon,
-            hoverTexture = revolutionHover,
+            iconTexture = revolutionIcon,
+            iconHoverTexture = revolutionHover,
             glyphHexes = new HexIndex[]
             {
                 revBowl,
@@ -309,8 +304,8 @@ internal static class Parts
             isFullHexCover = true,
             glowTexture = Assets.textures.select.triple_glow,
             strokeTexture = Assets.textures.select.triple_stroke,
-            baseTexture = synthesisIcon,
-            hoverTexture = synthesisHover,
+            iconTexture = synthesisIcon,
+            iconHoverTexture = synthesisHover,
             glyphHexes = new HexIndex[]
             {
                 synthesisInput1,
@@ -363,8 +358,8 @@ internal static class Parts
             isFullHexCover = true,
             glowTexture = Assets.textures.select.double_glow,
             strokeTexture = Assets.textures.select.double_stroke,
-            baseTexture = inversionIcon,
-            hoverTexture = inversionHover,
+            iconTexture = inversionIcon,
+            iconHoverTexture = inversionHover,
             glyphHexes = new HexIndex[]
             {
                 inversionOutput,
@@ -415,8 +410,8 @@ internal static class Parts
             isFullHexCover = true,
             glowTexture = subversionGlow,
             strokeTexture = subversionStroke,
-            baseTexture = subversionIcon,
-            hoverTexture = subversionHover,
+            iconTexture = subversionIcon,
+            iconHoverTexture = subversionHover,
             glyphHexes = new HexIndex[]
         {
                 subversionOutputLeft,
@@ -450,8 +445,8 @@ internal static class Parts
             isFullHexCover = true,
             glowTexture = sublimationGlow,
             strokeTexture = sublimationStroke,
-            baseTexture = sublimationIcon,
-            hoverTexture = sublimationHover,
+            iconTexture = sublimationIcon,
+            iconHoverTexture = sublimationHover,
             isUnique = true,
             glyphHexes = new HexIndex[]
             {
@@ -480,8 +475,8 @@ internal static class Parts
             isFullHexCover = true,
             glowTexture = Assets.textures.select.double_glow,
             strokeTexture = Assets.textures.select.double_stroke,
-            baseTexture = alignmentIcon,
-            hoverTexture = alignmentHover,
+            iconTexture = alignmentIcon,
+            iconHoverTexture = alignmentHover,
             glyphHexes = new HexIndex[]
         {
                 alignmentPrimaeHex,
@@ -510,8 +505,8 @@ internal static class Parts
             isFullHexCover = true,
             glowTexture = displacementGlow,
             strokeTexture = displacementStroke,
-            baseTexture = displacementIcon,
-            hoverTexture = displacementHover,
+            iconTexture = displacementIcon,
+            iconHoverTexture = displacementHover,
             glyphHexes = new HexIndex[]
         {
                 displacementPrimaeHex,
@@ -544,8 +539,8 @@ internal static class Parts
             isFullHexCover = true,
             glowTexture = etherealGlow,
             strokeTexture = etherealStroke,
-            baseTexture = etherealIcon,
-            hoverTexture = etherealHover,
+            iconTexture = etherealIcon,
+            iconHoverTexture = etherealHover,
             glyphHexes = new HexIndex[]
             {
                 etherealLeft,
@@ -586,8 +581,8 @@ internal static class Parts
             isFullHexCover = true,
             glowTexture = affluenceGlow,
             strokeTexture = affluenceStroke,
-            baseTexture = affluenceIcon,
-            hoverTexture = affluenceHover,
+            iconTexture = affluenceIcon,
+            iconHoverTexture = affluenceHover,
             glyphHexes = new HexIndex[]
             {
                 affluenceSulfurHex,
@@ -621,8 +616,8 @@ internal static class Parts
             isFullHexCover = true, // Is a glyph
             glowTexture = volatilityGlow,
             strokeTexture = volatilityStroke,
-            baseTexture = volatilityIcon, // Panel icon
-            hoverTexture = volatilityHover, // Hovered panel icon
+            iconTexture = volatilityIcon, // Panel icon
+            iconHoverTexture = volatilityHover, // Hovered panel icon
             glyphHexes = new HexIndex[]
             {
                 volatilityInputHex,

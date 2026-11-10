@@ -1,10 +1,5 @@
-﻿using MonoMod.Utils;
-using Quintessential;
-using System;
+﻿using Quintessential;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using static Quintessential.PartCycleDelegate;
 
 namespace PrimaMateria;
 
@@ -20,8 +15,8 @@ internal static class Wheels
     {
         TullasWheel = new PartType
         {
-            baseTexture = tullasIcon, // Panel icon
-            hoverTexture = tullasHover, // Hovered panel icon
+            iconTexture = tullasIcon, // Panel icon
+            iconHoverTexture = tullasHover, // Hovered panel icon
             cost = 30,
             isUnique = true,
             layer = PartTypeLayer.Top,
@@ -45,8 +40,8 @@ internal static class Wheels
 
         FabienneWheel = new PartType
         {
-            baseTexture = fabienneIcon, // Panel icon
-            hoverTexture = fabienneHover, // Hovered panel icon
+            iconTexture = fabienneIcon, // Panel icon
+            iconHoverTexture = fabienneHover, // Hovered panel icon
             cost = 30,
             isUnique = true,
             layer = PartTypeLayer.Top,

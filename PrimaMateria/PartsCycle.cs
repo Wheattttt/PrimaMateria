@@ -1,15 +1,6 @@
-﻿using MonoMod.Utils;
-using PrimaMateria;
-using Quintessential;
+﻿using Quintessential;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Reflection.Metadata.Ecma335;
-using System.Threading;
-using static Quintessential.Internal.LegacyPuzzleModel;
-using static Quintessential.PartCycleDelegate;
-using static StringLoader;
-using static TextureAssets;
 
 namespace PrimaMateria;
 
@@ -18,7 +9,7 @@ internal static class PartsCycle
     public static void AddAtom(Sim sim, Part part, HexIndex offset, AtomType atomType)
     {
         Molecule molecule = new();
-        molecule.AddAtom(new Atom(atomType), part.InFrontBy(offset));
+        molecule.AddAtom(new Atom(atomType), part.GlobalPosFromLocal(offset));
         sim.molecules.Add(molecule);
     }
     public static void RemoveAtom(AtomReference atom) => atom.molecule.RemoveAtom(atom.pos);
@@ -61,38 +52,38 @@ internal static class PartsCycle
                 }
 
                 // create left bond
-                Maybe<Bond> targeted = molecule.GetBondAt(part.InFrontBy(Parts.calcicLeft), part.InFrontBy(Parts.calcicMiddle));
+                Maybe<Bond> targeted = molecule.GetBondAt(part.GlobalPosFromLocal(Parts.calcicLeft), part.GlobalPosFromLocal(Parts.calcicMiddle));
                 if (!targeted.HasValue())
                 {
-                    if (molecule.AddBond(Bonds.Calcic, part.InFrontBy(Parts.calcicLeft), part.InFrontBy(Parts.calcicMiddle), bondEffect))
+                    if (molecule.AddBond(Bonds.Calcic, part.GlobalPosFromLocal(Parts.calcicLeft), part.GlobalPosFromLocal(Parts.calcicMiddle), bondEffect))
                     {
                         Vector2 left = Utils.InterpolateVect(
-                            HexGrid.standardGrid.ToPixelCoords(part.InFrontBy(Parts.calcicLeft)),
-                            HexGrid.standardGrid.ToPixelCoords(part.InFrontBy(Parts.calcicMiddle)), 0.5f);
+                            HexGrid.standardGrid.ToPixelCoords(part.GlobalPosFromLocal(Parts.calcicLeft)),
+                            HexGrid.standardGrid.ToPixelCoords(part.GlobalPosFromLocal(Parts.calcicMiddle)), 0.5f);
 
-                        sim.solutionEditor.field_3936.Add(new GlyphEffect(sim.solutionEditor, EffectTimescaleType.RealTime, left, bondTexture.glyphAnim, 30f, Vector2.Zero, 0f));
+                        sim.solutionEditor.glyphEffects.Add(new GlyphEffect(sim.solutionEditor, EffectTimescaleType.RealTime, left, bondTexture.glyphAnim, 30f, Vector2.Zero, 0f));
 
                         simState.wasActivated = true;
                     }
                 }
                 // right bond
-                Maybe<Bond> targeted2 = molecule.GetBondAt(part.InFrontBy(Parts.calcicMiddle), part.InFrontBy(Parts.calcicRight));
+                Maybe<Bond> targeted2 = molecule.GetBondAt(part.GlobalPosFromLocal(Parts.calcicMiddle), part.GlobalPosFromLocal(Parts.calcicRight));
                 if (!targeted2.HasValue())
                 {
-                    if (molecule.AddBond(Bonds.Calcic, part.InFrontBy(Parts.calcicMiddle), part.InFrontBy(Parts.calcicRight), bondEffect))
+                    if (molecule.AddBond(Bonds.Calcic, part.GlobalPosFromLocal(Parts.calcicMiddle), part.GlobalPosFromLocal(Parts.calcicRight), bondEffect))
                     {
                         Vector2 right = Utils.InterpolateVect(
-                            HexGrid.standardGrid.ToPixelCoords(part.InFrontBy(Parts.calcicMiddle)),
-                            HexGrid.standardGrid.ToPixelCoords(part.InFrontBy(Parts.calcicRight)), 0.5f);
+                            HexGrid.standardGrid.ToPixelCoords(part.GlobalPosFromLocal(Parts.calcicMiddle)),
+                            HexGrid.standardGrid.ToPixelCoords(part.GlobalPosFromLocal(Parts.calcicRight)), 0.5f);
 
-                        sim.solutionEditor.field_3936.Add(new GlyphEffect(sim.solutionEditor, EffectTimescaleType.RealTime, right, bondTexture.glyphAnim, 30f, Vector2.Zero,0f));
+                        sim.solutionEditor.glyphEffects.Add(new GlyphEffect(sim.solutionEditor, EffectTimescaleType.RealTime, right, bondTexture.glyphAnim, 30f, Vector2.Zero,0f));
 
                         simState.wasActivated = true;
                     }
                 }
                 if (!targeted.HasValue() || (!targeted2.HasValue()))
                 {
-                    bondTexture.bondSound.PlaySound(sim.solutionEditor.method_506());
+                    bondTexture.bondSound.PlaySound(sim.solutionEditor.GetVolumeMultiplier());
                 }
                 return true;
             }
@@ -135,7 +126,7 @@ internal static class PartsCycle
                                     RemoveAtom(volatileCCW);
                                     sim.solutionEditor.consumptionEffects.Add(new ConsumptionEffect(sim.solutionEditor, new AtomReference[] { volatileCCW }));
                                     ChangeAtom(volatileReference, recipe.ccwoutput);
-                                    Sounds.glyph_revolution.PlaySound(sim.solutionEditor.method_506());
+                                    Sounds.glyph_revolution.PlaySound(sim.solutionEditor.GetVolumeMultiplier());
                                     Color glowcolor = new Color(0f, 0f, 0f, 0f);
                                     foreach (API.AtomColor assignment in API.AtomColorsList)
                                     {
@@ -144,7 +135,7 @@ internal static class PartsCycle
                                             glowcolor = assignment.color;
                                         }
                                     }
-                                    Vector2 posAsVec = HexGrid.standardGrid.ToPixelCoords(part.InFrontBy(Parts.revBowl));
+                                    Vector2 posAsVec = HexGrid.standardGrid.ToPixelCoords(part.GlobalPosFromLocal(Parts.revBowl));
                                     GlyphEffect glowEffect = new(sim.solutionEditor, (EffectTimescaleType)1, posAsVec, Parts.subversionBowlFlashGlowAnimation, 30f, Vector2.Zero, 0)
                                     {
                                         Color = glowcolor
@@ -164,7 +155,7 @@ internal static class PartsCycle
                                     RemoveAtom(volatileCW);
                                     sim.solutionEditor.consumptionEffects.Add(new ConsumptionEffect(sim.solutionEditor, new AtomReference[] { volatileCW }));
                                     ChangeAtom(volatileReference, recipe.cwoutput);
-                                    Sounds.glyph_revolution.PlaySound(sim.solutionEditor.method_506());
+                                    Sounds.glyph_revolution.PlaySound(sim.solutionEditor.GetVolumeMultiplier());
                                     Color glowcolor = new Color(0f, 0f, 0f, 0f);
                                     foreach (API.AtomColor assignment in API.AtomColorsList)
                                     {
@@ -173,7 +164,7 @@ internal static class PartsCycle
                                             glowcolor = assignment.color;
                                         }
                                     }
-                                    Vector2 posAsVec = HexGrid.standardGrid.ToPixelCoords(part.InFrontBy(Parts.revBowl));
+                                    Vector2 posAsVec = HexGrid.standardGrid.ToPixelCoords(part.GlobalPosFromLocal(Parts.revBowl));
                                     GlyphEffect glowEffect = new(sim.solutionEditor, (EffectTimescaleType)1, posAsVec, Parts.subversionBowlFlashGlowAnimation, 30f, Vector2.Zero, 0)
                                     {
                                         Color = glowcolor
@@ -219,7 +210,7 @@ internal static class PartsCycle
                                 sim.solutionEditor.consumptionEffects.Add(new ConsumptionEffect(sim.solutionEditor, new AtomReference[] { primeIn2 }));
                                 simState.isProcessing = true;
                                 simState.processingAtoms = new AtomType[1] { recipe.output };
-                                Sounds.glyph_synthesis.PlaySound(sim.solutionEditor.method_506());
+                                Sounds.glyph_synthesis.PlaySound(sim.solutionEditor.GetVolumeMultiplier());
                                 return true;
                             }
                         }
@@ -256,7 +247,7 @@ internal static class PartsCycle
                                 sim.solutionEditor.consumptionEffects.Add(new ConsumptionEffect(sim.solutionEditor, new AtomReference[] { volatileIn }));
                                 simState.isProcessing = true;
                                 simState.processingAtoms = new AtomType[1] { recipe.output };
-                                Sounds.glyph_inversion.PlaySound(sim.solutionEditor.method_506());
+                                Sounds.glyph_inversion.PlaySound(sim.solutionEditor.GetVolumeMultiplier());
                                 return true;
                             }
                         }
@@ -302,11 +293,11 @@ internal static class PartsCycle
                                         rightcolor = assignment.color;
                                     }
                                 }
-                                Vector2 leftVec = HexGrid.standardGrid.ToPixelCoords(part.InFrontBy(Parts.subversionOutputLeft));
-                                Vector2 centerVec = HexGrid.standardGrid.ToPixelCoords(part.InFrontBy(Parts.sublimationCenter));
-                                Vector2 rightVec = HexGrid.standardGrid.ToPixelCoords(part.InFrontBy(Parts.subversionOutputRight));
+                                Vector2 leftVec = HexGrid.standardGrid.ToPixelCoords(part.GlobalPosFromLocal(Parts.subversionOutputLeft));
+                                Vector2 centerVec = HexGrid.standardGrid.ToPixelCoords(part.GlobalPosFromLocal(Parts.sublimationCenter));
+                                Vector2 rightVec = HexGrid.standardGrid.ToPixelCoords(part.GlobalPosFromLocal(Parts.subversionOutputRight));
 
-                                Sounds.glyph_subversion.PlaySound(sim.solutionEditor.method_506());
+                                Sounds.glyph_subversion.PlaySound(sim.solutionEditor.GetVolumeMultiplier());
 
                                 sim.solutionEditor.glyphEffects.Add(new GlyphEffect(sim.solutionEditor, (EffectTimescaleType)1, leftVec, Parts.AtomFlashAnimation, 30f, Vector2.Zero, 0));
                                 ChangeAtom(volatileLeft, recipe.leftoutput);
@@ -339,10 +330,10 @@ internal static class PartsCycle
             {
                 IntermediatePartState partInfo = sim.solutionEditor.GetIntermState(part, Vector2.Zero);
 
-                Sounds.glyph_sublimation.PlaySound(sim.solutionEditor.method_506());
+                Sounds.glyph_sublimation.PlaySound(sim.solutionEditor.GetVolumeMultiplier());
                 ChangeAtom(PrimeReference, Atoms.Primae);
                 PrimeReference.atom.transmutationEffect = new TransmutationEffect(sim.solutionEditor, (TransmutationEffectRenderMode)1, PrimeReference.atomType, Assets.textures.atoms.projection_effect, 30f);
-                Vector2 centerVec = HexGrid.standardGrid.ToPixelCoords(part.InFrontBy(Parts.revBowl));
+                Vector2 centerVec = HexGrid.standardGrid.ToPixelCoords(part.GlobalPosFromLocal(Parts.revBowl));
                 sim.solutionEditor.consumptionEffects.Add(new GlyphEffect(sim.solutionEditor, (EffectTimescaleType)1, centerVec, Parts.sublimationFlashAnimation, 30f, Vector2.Zero, partInfo.rotation));
                 return true;
             }
@@ -364,9 +355,9 @@ internal static class PartsCycle
                     {
                         ChangeAtom(PrimaeAtomReference, PrimeAtomReference.atomType);
                         PrimaeAtomReference.atom.transmutationEffect = new TransmutationEffect(sim.solutionEditor, (TransmutationEffectRenderMode)1, PrimaeAtomReference.atomType, Assets.textures.atoms.projection_effect, 30f);
-                        Vector2 centerVec = HexGrid.standardGrid.ToPixelCoords(part.InFrontBy(Parts.alignmentPrimaeHex));
+                        Vector2 centerVec = HexGrid.standardGrid.ToPixelCoords(part.GlobalPosFromLocal(Parts.alignmentPrimaeHex));
                         sim.solutionEditor.consumptionEffects.Add(new GlyphEffect(sim.solutionEditor, (EffectTimescaleType)1, centerVec, Parts.alignmentFlashAnimation, 30f, Vector2.Zero, 0f));
-                        Sounds.glyph_alignment.PlaySound(sim.solutionEditor.method_506());
+                        Sounds.glyph_alignment.PlaySound(sim.solutionEditor.GetVolumeMultiplier());
                         return true;
                     }
                 }
@@ -391,14 +382,14 @@ internal static class PartsCycle
                     AtomType LeftSwapAtomTemp = LeftSwapAtom.atomType;
                     ChangeAtom(LeftSwapAtom, RightSwapAtom.atomType);
                     ChangeAtom(RightSwapAtom, LeftSwapAtomTemp);
-                    Vector2 leftVec = HexGrid.standardGrid.ToPixelCoords(part.InFrontBy(Parts.displacementLeftSwapHex));
-                    Vector2 rightVec = HexGrid.standardGrid.ToPixelCoords(part.InFrontBy(Parts.displacementRightSwapHex));
+                    Vector2 leftVec = HexGrid.standardGrid.ToPixelCoords(part.GlobalPosFromLocal(Parts.displacementLeftSwapHex));
+                    Vector2 rightVec = HexGrid.standardGrid.ToPixelCoords(part.GlobalPosFromLocal(Parts.displacementRightSwapHex));
                     sim.solutionEditor.consumptionEffects.Add(new GlyphEffect(sim.solutionEditor, (EffectTimescaleType)1, leftVec, Parts.alignmentFlashAnimation, 30f, Vector2.Zero, 0f));
                     sim.solutionEditor.consumptionEffects.Add(new GlyphEffect(sim.solutionEditor, (EffectTimescaleType)1, rightVec, Parts.alignmentFlashAnimation, 30f, Vector2.Zero, 0f));
                     LeftSwapAtom.atom.transmutationEffect = new TransmutationEffect(sim.solutionEditor, (TransmutationEffectRenderMode)1, LeftSwapAtom.atomType, Assets.textures.atoms.projection_effect, 30f);
                     RightSwapAtom.atom.transmutationEffect = new TransmutationEffect(sim.solutionEditor, (TransmutationEffectRenderMode)1, RightSwapAtom.atomType, Assets.textures.atoms.projection_effect, 30f);
 
-                    Sounds.glyph_alignment.PlaySound(sim.solutionEditor.method_506());
+                    Sounds.glyph_alignment.PlaySound(sim.solutionEditor.GetVolumeMultiplier());
                     return true;
                 }
             }
@@ -438,17 +429,17 @@ internal static class PartsCycle
                         sim.molecules.Add(molecule);
                     }
                     // create bond
-                    if (molecule.AddBond(Bonds.Ethereal, part.InFrontBy(Parts.etherealLeft), part.InFrontBy(Parts.etherealRight), bondEffect))
+                    if (molecule.AddBond(Bonds.Ethereal, part.GlobalPosFromLocal(Parts.etherealLeft), part.GlobalPosFromLocal(Parts.etherealRight), bondEffect))
                     {
                         Vector2 left = Utils.InterpolateVect(
-                            HexGrid.standardGrid.ToPixelCoords(part.InFrontBy(Parts.etherealLeft)),
-                            HexGrid.standardGrid.ToPixelCoords(part.InFrontBy(Parts.etherealRight)), 0.5f);
+                            HexGrid.standardGrid.ToPixelCoords(part.GlobalPosFromLocal(Parts.etherealLeft)),
+                            HexGrid.standardGrid.ToPixelCoords(part.GlobalPosFromLocal(Parts.etherealRight)), 0.5f);
 
-                        sim.solutionEditor.field_3936.Add(new GlyphEffect(sim.solutionEditor, EffectTimescaleType.RealTime, left, bondTexture.glyphAnim, 30f, Vector2.Zero, 0f));
+                        sim.solutionEditor.glyphEffects.Add(new GlyphEffect(sim.solutionEditor, EffectTimescaleType.RealTime, left, bondTexture.glyphAnim, 30f, Vector2.Zero, 0f));
 
                         simState.wasActivated = true;
                     }
-                    Sounds.glyph_etherealbonder.PlaySound(sim.solutionEditor.method_506());
+                    Sounds.glyph_etherealbonder.PlaySound(sim.solutionEditor.GetVolumeMultiplier());
                     return true;
                 }
             }
@@ -503,11 +494,11 @@ internal static class PartsCycle
                                 glowcolor = assignment.color;
                             }
                         }
-                        Vector2 centerVec = HexGrid.standardGrid.ToPixelCoords(part.InFrontBy(Parts.affluenceSulfurHex));
+                        Vector2 centerVec = HexGrid.standardGrid.ToPixelCoords(part.GlobalPosFromLocal(Parts.affluenceSulfurHex));
                         sim.solutionEditor.glyphEffects.Add(new GlyphEffect(sim.solutionEditor, (EffectTimescaleType)1, centerVec, Parts.AtomFlashAnimation, 30f, Vector2.Zero, 0));
                         sim.solutionEditor.glyphEffects.Add(new GlyphEffect(sim.solutionEditor, (EffectTimescaleType)1, centerVec, Parts.subversionBowlFlashGlowAnimation, 30f, Vector2.Zero, 0) { Color = glowcolor });
                         sim.solutionEditor.glyphEffects.Add(new GlyphEffect(sim.solutionEditor, (EffectTimescaleType)1, centerVec, Parts.subversionBowlFlashAnimation, 30f, Vector2.Zero, 0));
-                        Sounds.glyph_affluence.PlaySound(sim.solutionEditor.method_506());
+                        Sounds.glyph_affluence.PlaySound(sim.solutionEditor.GetVolumeMultiplier());
                         break;
                     }
                 }
@@ -555,7 +546,7 @@ internal static class PartsCycle
                                 sim.solutionEditor.consumptionEffects.Add(new ConsumptionEffect(sim.solutionEditor, new AtomReference[] { atomIn }));
                                 simState.isProcessing = true;
                                 simState.processingAtoms = new AtomType[6] { recipe.sulfur, recipe.quicklime, recipe.potash, recipe.magnesia, recipe.antimony, recipe.phosphor };
-                                Sounds.glyph_volatility.PlaySound(sim.solutionEditor.method_506());
+                                Sounds.glyph_volatility.PlaySound(sim.solutionEditor.GetVolumeMultiplier());
                                 return true;
                             }
                         }
